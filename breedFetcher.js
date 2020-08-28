@@ -9,7 +9,11 @@ const fetchBreedDescription = (breedName, cb) => {
       cb(`Error: ${response.statusCode}`, null); // does this give status code?
     } else {
       const data = JSON.parse(body);
-      cb(null, data);
+      if (!data.length) {
+        cb(`'${breedName}' is not a breed`, null);
+      } else {
+        cb(null, data[0].description.trim());
+      }
     }
     
   });
